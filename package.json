@@ -1,0 +1,18 @@
+{
+  "version": "0.0.0",
+  "name": "sdf",
+  "author": "flodlc <f.delacomble@gmail.com>",
+  "packageManager": "yarn@3.2.3",
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "eslint": "^8.18.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
+    "prettier": "2.7.1"
+  }
+}
