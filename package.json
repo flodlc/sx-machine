@@ -1,12 +1,16 @@
 {
   "version": "0.0.0",
-  "name": "sdf",
+  "name": "themebox-main",
   "author": "flodlc <f.delacomble@gmail.com>",
-  "packageManager": "yarn@3.2.3",
+  "packageManager": "yarn@3.2.1",
   "workspaces": [
     "packages/*"
   ],
   "private": true,
+  "dependencies": {
+    "@types/node": "^18.7.16",
+    "typescript": "^4.7.2"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",

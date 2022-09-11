@@ -1,13 +1,37 @@
 {
-  "name": "lib",
-  "packageManager": "yarn@3.2.3",
+  "name": "themebox",
+  "private": true,
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "commonjs",
+  "packageManager": "yarn@3.2.2",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "run-p --continue-on-error watch:source watch:types",
+    "watch:types": "tsc -w",
+    "watch:source": "tsup src/index.ts --watch",
+    "build": "yarn run build:types && yarn run build:source",
+    "build:types": "tsc",
+    "build:source": "tsup src/index.ts",
+    "test": "jest"
+  },
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "^11.10.0",
     "@emotion/react": "^11.10.4",
+    "@types/react": "^18.0.19",
     "lodash.get": "^4.4.2",
+    "npm-run-all": "^4.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@types/lodash.get": "^4.4.7"
+    "@babel/core": "^7.18.2",
+    "@emotion/babel-plugin": "^11.10.2",
+    "@types/jest": "^29.0.0",
+    "@types/lodash.get": "^4.4.7",
+    "@types/node": "^18.7.16",
+    "esbuild-jest": "^0.5.0",
+    "jest": "^29.0.2",
+    "tsup": "^6.2.3"
   }
 }
