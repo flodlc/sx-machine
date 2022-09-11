@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { css } from './css';
+import { css, InputStyle } from './css';
 import { GenericComponent } from './GenericComponent';
 import { SCALES } from './rules';
 import { SX } from './SX';
@@ -16,11 +16,13 @@ const getStyle = (sx?: SX) => {
         })(sx);
     }
     return (theme: Theme) =>
-      sx.flat(20).map((style: any) =>
-        css({
-          theme,
-          SCALES,
-        })(style)
+      sx.flat(20).map(
+        (style) =>
+          style &&
+          css({
+            theme,
+            SCALES,
+          })(style as InputStyle)
       );
   }
 };

@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Box, theme, ThemeProvider } from 'themebox';
 
+import { Card } from './Card';
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
@@ -35,6 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         >
           My box
         </Box>
+        <Card sx={{ flex: 1, m: 2 }}>My Card</Card>
       </Box>
     </ThemeProvider>
   </React.StrictMode>
