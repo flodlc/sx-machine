@@ -37,3 +37,20 @@ export const SCALES = {
   marginTop: { transform: marginTransform },
   marginBottom: { transform: marginTransform },
 };
+
+export const ALIASES = {
+  ml: 'marginLeft',
+  mr: 'marginRight',
+  mt: 'marginTop',
+  mb: 'marginBottom',
+  m: 'margin',
+  my: 'marginY',
+  mx: 'marginX',
+  pl: 'paddingLeft',
+  pr: 'paddingRight',
+  pt: 'paddingTop',
+  pb: 'paddingBottom',
+  p: 'padding',
+  py: 'paddingY',
+  px: 'paddingX',
+} as const;

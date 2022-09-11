@@ -1,24 +1,7 @@
 import * as CSS from 'csstype';
 import get from 'lodash.get';
 
-import { SCALES } from './rules';
-
-const ALIASES = {
-  ml: 'marginLeft',
-  mr: 'marginRight',
-  mt: 'marginTop',
-  mb: 'marginBottom',
-  m: 'margin',
-  my: 'marginY',
-  mx: 'marginX',
-  pl: 'paddingLeft',
-  pr: 'paddingRight',
-  pt: 'paddingTop',
-  pb: 'paddingBottom',
-  p: 'padding',
-  py: 'paddingY',
-  px: 'paddingX',
-} as const;
+import { ALIASES, SCALES } from './rules';
 
 type CSSProperties = CSS.Properties<number, string>;
 
@@ -62,7 +45,6 @@ type CSS =
 export function css<
   R extends Record<
     string,
-    // eslint-disable-next-line no-unused-vars
     { transform: (value: never) => string | number | boolean | CSSProperties }
   >
 >({
@@ -76,7 +58,6 @@ export function css<
   >;
   SCALES: R;
   breakpoints?: string[];
-  // eslint-disable-next-line no-unused-vars
 }): (sx: InputStyle) => CSSProperties {
   return (sx: InputStyle) => {
     return computeProp(sx);
@@ -86,7 +67,6 @@ export function css<
         const resolvedKey =
           key in ALIASES ? ALIASES[key as keyof typeof ALIASES] : key;
         const value = style[key as keyof InputStyle];
-        // console.log(sx, resolvedKey, key, value);
         if (!value) return acc;
 
         if (Array.isArray(value)) {
