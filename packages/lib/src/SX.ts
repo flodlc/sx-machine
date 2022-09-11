@@ -1,6 +1,6 @@
-type ThemeUICSSObject = any;
+import { InputStyle } from './css';
 import { Theme } from './theme';
 
-type StyleObject = ThemeUICSSObject | ((theme: Theme) => ThemeUICSSObject);
+// type StyleObject = InputStyle | ((theme: Theme) => ThemeUICSSObject);
 
-export type SX = StyleObject | (SX | undefined)[];
+export type SX = InputStyle | (SX | undefined)[];

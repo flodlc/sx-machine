@@ -12,13 +12,15 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         }}
       >
         <Box
-          sx={{
-            background: 'blue',
-            p: 4,
-            color: 'white',
-            flex: 1,
-            m: 2,
-          }}
+          sx={[
+            {
+              background: 'blue',
+              p: 4,
+              color: 'white',
+              flex: 1,
+              m: 2,
+            },
+          ]}
         >
           My box
         </Box>

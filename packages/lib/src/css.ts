@@ -1,6 +1,8 @@
 import * as CSS from 'csstype';
 import get from 'lodash.get';
 
+import { SCALES } from './rules';
+
 const ALIASES = {
   ml: 'marginLeft',
   mr: 'marginRight',
@@ -18,56 +20,44 @@ const ALIASES = {
   px: 'paddingX',
 } as const;
 
-const SCZA = {
-  paddingY: {
-    transform: (value: number) => ({
-      paddingTop: value * 4,
-      paddingBottom: value * 4,
-    }),
-  },
-  marginLeft: {
-    transform: (value: number) => value * 4,
-  },
-  color: {
-    transform: (value: string) => value,
-  },
-};
-
 type CSSProperties = CSS.Properties<number, string>;
-type CSSPropertiesFallback = CSS.PropertiesFallback<number, string>;
 
-type StyleFromScale<P extends keyof typeof SCZA> =
-  | Parameters<typeof SCZA[P]['transform']>[0]
-  | Parameters<typeof SCZA[P]['transform']>[0][];
+type StyleFromScale<P extends keyof typeof SCALES> =
+  | Parameters<typeof SCALES[P]['transform']>[0]
+  | (Parameters<typeof SCALES[P]['transform']>[0] | null)[];
 
-type StyleProperty<P extends keyof CSSPropertiesFallback | keyof typeof SCZA> =
-  P extends keyof typeof SCZA
+type StyleFromCSSProperties<P extends keyof CSSProperties> =
+  | CSSProperties[P]
+  | (CSSProperties[P] | null)[];
+
+type StyleProperty<P extends keyof CSSProperties | keyof typeof SCALES> =
+  P extends keyof typeof SCALES
     ? StyleFromScale<P>
-    : P extends keyof CSSPropertiesFallback
-    ? CSSPropertiesFallback[P]
+    : P extends keyof CSSProperties
+    ? StyleFromCSSProperties<P>
     : unknown;
 
 type Properties =
   | {
-      [P in keyof CSSPropertiesFallback | keyof typeof SCZA]?:
+      [P in keyof CSSProperties | keyof typeof SCALES]?:
         | StyleProperty<P>
         | Properties;
     } & {
       [p: string]:
         | Properties
-        | StyleProperty<keyof CSSPropertiesFallback | keyof typeof SCZA>;
+        | StyleProperty<keyof CSSProperties | keyof typeof SCALES>;
     };
+
+export type InputStyle = Properties & {
+  [T in keyof typeof ALIASES]?: typeof ALIASES[T] extends keyof Properties
+    ? Properties[typeof ALIASES[T]]
+    : undefined;
+};
 
 type CSS =
   | {
       [P in keyof CSSProperties]?: CSSProperties[P];
     } & { [t: string]: CSS | CSSProperties[keyof CSSProperties] };
-
-type SX = Properties & {
-  [T in keyof typeof ALIASES]?: typeof ALIASES[T] extends keyof Properties
-    ? Properties[typeof ALIASES[T]]
-    : undefined;
-};
 
 export function css<
   R extends Record<
@@ -87,15 +77,15 @@ export function css<
   SCALES: R;
   breakpoints?: string[];
   // eslint-disable-next-line no-unused-vars
-}): (sx: SX) => CSSProperties {
-  return (sx: SX) => {
+}): (sx: InputStyle) => CSSProperties {
+  return (sx: InputStyle) => {
     return computeProp(sx);
 
-    function computeProp(style: SX): CSS {
+    function computeProp(style: InputStyle): CSS {
       return Object.keys(style).reduce((acc, key) => {
         const resolvedKey =
           key in ALIASES ? ALIASES[key as keyof typeof ALIASES] : key;
-        const value = style[key as keyof SX];
+        const value = style[key as keyof InputStyle];
         // console.log(sx, resolvedKey, key, value);
         if (!value) return acc;
 
@@ -103,9 +93,10 @@ export function css<
           return breakpoints.reduce((accu, breakpoint, index) => {
             const breakpointRule = `@media (min-width: ${breakpoint})`;
             const breakpointValue = value[index];
-            if (breakpointValue === undefined) return accu;
+            if (breakpointValue === null || breakpointValue === undefined)
+              return accu;
             const computedBreakpointValue = computeValue({
-              key: resolvedKey as keyof SX,
+              key: resolvedKey as keyof InputStyle,
               value: breakpointValue,
             });
             if (!computedBreakpointValue) return accu;
@@ -136,7 +127,7 @@ export function css<
         }
 
         const computedValue = computeValue({
-          key: resolvedKey as keyof SX,
+          key: resolvedKey as keyof InputStyle,
           value,
         });
         if (!computedValue) return acc;
@@ -148,7 +139,7 @@ export function css<
       }, {} as CSS);
     }
 
-    function computeValue<K extends keyof SX>({
+    function computeValue<K extends keyof InputStyle>({
       key,
       value,
     }: {
@@ -166,28 +157,3 @@ export function css<
     }
   };
 }
-
-console.log(
-  css({
-    theme: {
-      primary: '#23349I',
-      colors: { primary: 'green' },
-    },
-    SCALES: {
-      paddingY: {
-        transform: (value: number) => ({
-          paddingTop: value * 4,
-          paddingBottom: value * 4,
-        }),
-      },
-      marginLeft: {
-        transform: (value: number) => value * 4,
-      },
-    },
-  })({
-    color: 'colors.primary',
-    marginLeftd: {
-      color: 'dsf',
-    },
-  })
-);
