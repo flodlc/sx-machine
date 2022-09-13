@@ -1,7 +1,7 @@
 import * as CSS from 'csstype';
 import get from 'lodash.get';
 
-import { ALIASES, SCALES } from './rules';
+import { ALIASES, SCALES, THEME_KEYS } from './rules';
 
 type CSSProperties = CSS.Properties<number, string>;
 
@@ -42,21 +42,14 @@ type CSS =
       [P in keyof CSSProperties]?: CSSProperties[P];
     } & { [t: string]: CSS | CSSProperties[keyof CSSProperties] };
 
-export function css<
-  R extends Record<
-    string,
-    { transform: (value: never) => string | number | boolean | CSSProperties }
-  >
->({
+export function css({
   theme = {} as never,
-  SCALES,
   breakpoints = [0, 30, 48, 62, 80, 96].map((n) => n + 'em'),
 }: {
   theme: Record<
     string | number,
     string | number | Record<string | number, string | number>
   >;
-  SCALES: R;
   breakpoints?: string[];
 }): (sx: InputStyle) => CSSProperties {
   return (sx: InputStyle) => {
@@ -127,13 +120,24 @@ export function css<
       value: string | number | boolean;
     }) {
       const themedValue =
-        typeof value === 'string' ? get(theme, value, value) : value;
+        typeof value === 'string' || typeof value === 'number'
+          ? get(
+              theme,
+              `${
+                key in THEME_KEYS
+                  ? `${THEME_KEYS[key as keyof typeof THEME_KEYS]}.`
+                  : ''
+              }${value}`,
+              value
+            )
+          : value;
 
       const property =
         key in SCALES ? SCALES[key as keyof typeof SCALES] : undefined;
-      return (
-        property ? property.transform(themedValue as never) : themedValue
-      ) as CSSProperties[keyof CSSProperties] | CSSProperties;
+      return property
+        ? property.transform(themedValue as never)
+        : (themedValue as CSSProperties[keyof CSSProperties] | CSSProperties);
+      // themedValue as CSSProperties[keyof CSSProperties] | CSSProperties
     }
   };
 }
