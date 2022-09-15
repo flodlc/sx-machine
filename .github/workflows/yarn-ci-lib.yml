@@ -17,5 +17,5 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-
 
-      - run: yarn && yarn --cwd packages/lib ci
+      - run: yarn && yarn --cwd packages/lib build
       - run: yarn && yarn --cwd packages/lib test

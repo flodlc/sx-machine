@@ -14,7 +14,6 @@
     "build:types": "tsc",
     "build:source": "tsup src/index.ts",
     "test": "jest",
-    "ci": "yarn && run-s build test"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "^11.10.0",
