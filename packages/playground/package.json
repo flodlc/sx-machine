@@ -1,6 +1,6 @@
 {
   "name": "playground",
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.2.1",
   "private": true,
   "type": "commonjs",
   "scripts": {
