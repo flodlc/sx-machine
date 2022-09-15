@@ -31,8 +31,8 @@ test('deep scales', () => {
         ),
       },
     })({
-      mx: 5,
-      bg: 'primary',
+      mx: '5',
+      background: 'primary',
       paddingX: 2,
       '> div': { color: 'primary', paddingX: 10 },
       '> span': { padding: 1 },

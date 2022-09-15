@@ -1,15 +1,16 @@
 import React, { forwardRef } from 'react';
+// @ts-ignore
+import hash from 'stable-hash';
 
 import { css, InputStyle } from './css';
 import { GenericComponent } from './GenericComponent';
-import { stableHash } from './hash';
+import { Theme } from './index';
 import { SX } from './SX';
-import { Theme } from './theme';
 
 const CACHE = new Map<string, any>();
 
 const getStyle = (sx?: SX) => {
-  const sxHash = stableHash(sx);
+  const sxHash = hash(sx) as string;
   const cachedSx = CACHE.get(sxHash);
   if (cachedSx) {
     return cachedSx;
@@ -22,7 +23,7 @@ const getStyle = (sx?: SX) => {
         css({
           theme,
         })(sx);
-      CACHE.set(stableHash(sx), style);
+      CACHE.set(hash(sx), style);
       return style;
     }
     const style = (theme: Theme) =>
@@ -33,7 +34,7 @@ const getStyle = (sx?: SX) => {
             theme,
           })(style as InputStyle)
       );
-    CACHE.set(stableHash(sx), style);
+    CACHE.set(hash(sx), style);
     return style;
   }
 };
@@ -42,7 +43,7 @@ type Box = GenericComponent<'div', { children?: React.ReactNode }>;
 
 export const Box: Box = forwardRef<React.ElementType, Parameters<Box>[0]>(
   ({ children, sx, as = 'div', ...props }, ref) => {
-    CACHE.set(stableHash({ sx, as, ...props }), true);
+    CACHE.set(hash({ sx, as, ...props }), true);
     const Tag = as;
     const style = getStyle(sx);
     if (!style) {

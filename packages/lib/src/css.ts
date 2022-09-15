@@ -1,34 +1,51 @@
 import * as CSS from 'csstype';
 import get from 'lodash.get';
 
-import { ALIASES, SCALES, THEME_KEYS } from './rules';
+import { Theme } from './index';
+import { ALIASES, THEME_KEYS, TRANSFORMS } from './rules';
 
 type CSSProperties = CSS.Properties<number, string>;
 
-type StyleFromScale<P extends keyof typeof SCALES> =
-  | Parameters<typeof SCALES[P]['transform']>[0]
-  | (Parameters<typeof SCALES[P]['transform']>[0] | null)[];
+type FromMultiple<P extends keyof typeof TRANSFORMS> = keyof ReturnType<
+  typeof TRANSFORMS[P]
+>;
+
+type StyleFromTheme<
+  T extends Record<string, unknown>,
+  P extends string
+> = P extends keyof typeof THEME_KEYS
+  ? Theme extends {
+      [D in typeof THEME_KEYS[P]]: T[D];
+    }
+    ? keyof Theme[typeof THEME_KEYS[P]]
+    : number
+  : never;
 
 type StyleFromCSSProperties<P extends keyof CSSProperties> =
   | CSSProperties[P]
   | (CSSProperties[P] | null)[];
 
-type StyleProperty<P extends keyof CSSProperties | keyof typeof SCALES> =
-  P extends keyof typeof SCALES
-    ? StyleFromScale<P>
+type StyleProper<P extends keyof CSSProperties | keyof typeof THEME_KEYS> =
+  P extends keyof typeof TRANSFORMS
+    ? FromMultiple<P> extends
+        | keyof CSSProperties
+        | keyof typeof THEME_KEYS
+        | keyof typeof TRANSFORMS
+      ? StyleProper<FromMultiple<P>>
+      : never
     : P extends keyof CSSProperties
-    ? StyleFromCSSProperties<P>
-    : unknown;
+    ? StyleFromCSSProperties<P> | StyleFromTheme<Theme, P>
+    : StyleFromTheme<Theme, P>;
 
 type Properties =
   | {
-      [P in keyof CSSProperties | keyof typeof SCALES]?:
-        | StyleProperty<P>
+      [P in keyof CSSProperties | keyof typeof THEME_KEYS]?:
+        | StyleProper<P>
         | Properties;
     } & {
       [p: string]:
         | Properties
-        | StyleProperty<keyof CSSProperties | keyof typeof SCALES>;
+        | StyleProper<keyof CSSProperties | keyof typeof THEME_KEYS>;
     };
 
 export type InputStyle = Properties & {
@@ -42,14 +59,16 @@ type CSS =
       [P in keyof CSSProperties]?: CSSProperties[P];
     } & { [t: string]: CSS | CSSProperties[keyof CSSProperties] };
 
-export function css({
-  theme = {} as never,
-  breakpoints = [0, 30, 48, 62, 80, 96].map((n) => n + 'em'),
-}: {
-  theme: Record<
+export function css<
+  T extends Record<
     string | number,
     string | number | Record<string | number, string | number>
-  >;
+  >
+>({
+  theme,
+  breakpoints = [0, 30, 48, 62, 80, 96].map((n) => n + 'em'),
+}: {
+  theme: T;
   breakpoints?: string[];
 }): (sx: InputStyle) => CSSProperties {
   return (sx: InputStyle) => {
@@ -132,10 +151,12 @@ export function css({
             )
           : value;
 
-      const property =
-        key in SCALES ? SCALES[key as keyof typeof SCALES] : undefined;
-      return property
-        ? property.transform(themedValue as never)
+      const scale =
+        key in TRANSFORMS
+          ? TRANSFORMS[key as keyof typeof TRANSFORMS]
+          : undefined;
+      return scale
+        ? scale(themedValue as never)
         : (themedValue as CSSProperties[keyof CSSProperties] | CSSProperties);
       // themedValue as CSSProperties[keyof CSSProperties] | CSSProperties
     }

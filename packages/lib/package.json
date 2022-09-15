@@ -23,6 +23,7 @@
     "npm-run-all": "^4.1.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "stable-hash": "^0.0.2",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
