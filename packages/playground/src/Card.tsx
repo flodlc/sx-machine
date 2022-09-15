@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, GenericComponent } from 'themebox';
+import { Box, GenericComponent, useTheme } from 'themebox';
 
 type Card = GenericComponent<
   'div',
@@ -9,6 +9,9 @@ type Card = GenericComponent<
 >;
 
 export const Card: Card = ({ children, sx, ...props }) => {
+  const theme = useTheme();
+  const a = theme.shadows;
+  console.log(a);
   return (
     <Box
       sx={[
