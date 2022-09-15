@@ -1,44 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Box, theme, ThemeProvider } from 'themebox';
+import { Box, ThemeProvider } from 'themebox';
 
 import { Card } from './Card';
+import { theme } from './theme';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: ['column', null, 'row'],
-        }}
-      >
+const Wrapper = () => {
+  return (
+    <>
+      {new Array(1).fill(0).map((od, i) => (
         <Box
-          sx={[
-            {
+          key={i}
+          sx={{
+            display: 'flex',
+            flexDirection: ['column', null, 'row'],
+          }}
+        >
+          <Box
+            sx={[
+              {
+                background: 'primary',
+                p: 4,
+                color: 'primary',
+                flex: 1,
+                m: 2,
+              },
+            ]}
+          >
+            hey
+          </Box>
+          <Box
+            sx={{
               background: 'blue',
               p: 4,
               color: 'white',
               flex: 1,
               m: 2,
-            },
-          ]}
-        >
-          My box
+            }}
+          />
+          <Card sx={{ flex: 1, m: 2, boxShadow: 1 }}>My Card</Card>
         </Box>
-        <Box
-          sx={{
-            background: 'blue',
-            p: 4,
-            color: 'white',
-            flex: 1,
-            m: 2,
-          }}
-        >
-          My box
-        </Box>
-        <Card sx={{ flex: 1, m: 2 }}>My Card</Card>
-      </Box>
-    </ThemeProvider>
-  </React.StrictMode>
+      ))}
+    </>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <ThemeProvider theme={theme}>
+    <Wrapper />
+  </ThemeProvider>
 );

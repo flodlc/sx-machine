@@ -1,4 +1,4 @@
-name: Yarn CI Server
+name: Yarn CI lib
 on: [ pull_request ]
 jobs:
   ciserver:
@@ -18,3 +18,4 @@ jobs:
             ${{ runner.os }}-
 
       - run: yarn && yarn --cwd packages/lib ci
+      - run: yarn && yarn --cwd packages/lib test

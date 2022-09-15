@@ -1,7 +1,8 @@
-import type { Theme as DTheme } from './index';
+import { theme } from './theme';
 
-declare module '@emotion/react' {
-  export interface Theme extends DTheme {
-    f: undefined;
-  }
+type CustomTheme = typeof theme;
+
+declare module 'themebox' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface Theme extends CustomTheme {}
 }
