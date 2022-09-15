@@ -4,7 +4,7 @@
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "type": "commonjs",
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.2.1",
   "version": "0.1.0",
   "scripts": {
     "dev": "run-p --continue-on-error watch:source watch:types",
