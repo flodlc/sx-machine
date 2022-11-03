@@ -2,7 +2,7 @@ import * as CSS from 'csstype';
 import get from 'lodash.get';
 
 import { Theme } from './index';
-import { ALIASES, THEME_KEYS, TRANSFORMS } from './rules';
+import { ALIASES, TRANSFORMS } from './rules';
 
 type CSSProperties = CSS.Properties<number, string>;
 
@@ -10,65 +10,60 @@ type FromMultiple<P extends keyof typeof TRANSFORMS> = keyof ReturnType<
   typeof TRANSFORMS[P]
 >;
 
-type StyleFromTheme<
-  T extends Record<string, unknown>,
-  P extends string
-> = P extends keyof typeof THEME_KEYS
+type StyleFromTheme<P extends string> = P extends keyof Theme['scales']
   ? Theme extends {
-      [D in typeof THEME_KEYS[P]]: T[D];
+      [D in Theme['scales'][P]]: Theme[D];
     }
-    ? keyof Theme[typeof THEME_KEYS[P]]
-    : number
+    ? keyof Theme[Theme['scales'][P]]
+    : P extends keyof CSSProperties
+    ? StyleFromCSSProperties<P>
+    : never
   : never;
 
 type StyleFromCSSProperties<P extends keyof CSSProperties> =
   | CSSProperties[P]
-  | (CSSProperties[P] | null)[];
+  | (CSSProperties[P] | null)[]
+  | ((theme: Theme) => CSSProperties[P] | (CSSProperties[P] | null)[]);
 
-type StyleProper<P extends keyof CSSProperties | keyof typeof THEME_KEYS> =
+type StyleProper<P extends keyof CSSProperties | keyof Theme['scales']> =
   P extends keyof typeof TRANSFORMS
     ? FromMultiple<P> extends
         | keyof CSSProperties
-        | keyof typeof THEME_KEYS
+        | keyof Theme['scales']
         | keyof typeof TRANSFORMS
       ? StyleProper<FromMultiple<P>>
       : never
     : P extends keyof CSSProperties
-    ? StyleFromCSSProperties<P> | StyleFromTheme<Theme, P>
-    : StyleFromTheme<Theme, P>;
+    ? StyleFromCSSProperties<P> | StyleFromTheme<P>
+    : StyleFromTheme<P>;
 
 type Properties =
   | {
-      [P in keyof CSSProperties | keyof typeof THEME_KEYS]?:
+      [P in keyof CSSProperties | keyof Theme['scales']]?:
         | StyleProper<P>
         | Properties;
     } & {
       [p: string]:
         | Properties
-        | StyleProper<keyof CSSProperties | keyof typeof THEME_KEYS>;
+        | StyleProper<keyof CSSProperties | keyof Theme['scales']>;
     };
 
-export type InputStyle = Properties & {
-  [T in keyof typeof ALIASES]?: typeof ALIASES[T] extends keyof Properties
-    ? Properties[typeof ALIASES[T]]
-    : undefined;
-};
+export type InputStyle =
+  | Properties & {
+      [T in keyof typeof ALIASES]?: typeof ALIASES[T] extends keyof Properties
+        ? Properties[typeof ALIASES[T]]
+        : undefined;
+    };
 
 type CSS =
   | {
       [P in keyof CSSProperties]?: CSSProperties[P];
     } & { [t: string]: CSS | CSSProperties[keyof CSSProperties] };
-
-export function css<
-  T extends Record<
-    string | number,
-    string | number | Record<string | number, string | number>
-  >
->({
+export function css({
   theme,
   breakpoints = [0, 30, 48, 62, 80, 96].map((n) => n + 'em'),
 }: {
-  theme: T;
+  theme: Theme;
   breakpoints?: string[];
 }): (sx: InputStyle) => CSSProperties {
   return (sx: InputStyle) => {
@@ -78,7 +73,12 @@ export function css<
       return Object.keys(style).reduce((acc, key) => {
         const resolvedKey =
           key in ALIASES ? ALIASES[key as keyof typeof ALIASES] : key;
-        const value = style[key as keyof InputStyle];
+
+        const brutValue = style[key as keyof InputStyle];
+
+        const value =
+          typeof brutValue === 'function' ? brutValue(theme) : brutValue;
+
         if (!value) return acc;
 
         if (Array.isArray(value)) {
@@ -136,15 +136,15 @@ export function css<
       value,
     }: {
       key: K;
-      value: string | number | boolean;
+      value: string | boolean | number;
     }) {
       const themedValue =
         typeof value === 'string' || typeof value === 'number'
           ? get(
               theme,
               `${
-                key in THEME_KEYS
-                  ? `${THEME_KEYS[key as keyof typeof THEME_KEYS]}.`
+                key in theme.scales
+                  ? `${theme.scales[key as keyof typeof theme.scales]}.`
                   : ''
               }${value}`,
               value

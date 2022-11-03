@@ -1,13 +1,15 @@
 import { css } from './css';
+import { defaultTheme } from './theme';
 
 test('empty object', () => {
-  expect(css({ theme: {} })({})).toEqual({});
+  expect(css({ theme: { ...defaultTheme } })({})).toEqual({});
 });
 
 test('deep scales', () => {
   expect(
     css({
       theme: {
+        ...defaultTheme,
         colors: { primary: '#444444' },
         spaces: Object.fromEntries(
           new Array(120).fill(0).map((it, i) => [i - 59, `${(i - 59) / 4}rem`])
@@ -25,6 +27,7 @@ test('deep scales', () => {
   expect(
     css({
       theme: {
+        ...defaultTheme,
         colors: { primary: '#444444' },
         spaces: Object.fromEntries(
           new Array(120).fill(0).map((it, i) => [i - 59, `${(i - 59) / 4}rem`])

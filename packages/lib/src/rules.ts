@@ -37,6 +37,7 @@ export const THEME_KEYS = {
   paddingBottom: 'spaces',
   paddingY: 'spaces',
   paddingX: 'spaces',
+  margin: 'spaces',
   marginLeft: 'spaces',
   marginRight: 'spaces',
   marginTop: 'spaces',

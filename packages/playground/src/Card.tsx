@@ -9,13 +9,15 @@ type Card = GenericComponent<
 >;
 
 export const Card: Card = ({ children, sx, ...props }) => {
-  const theme = useTheme();
-  const a = theme.shadows;
-  console.log(a);
   return (
     <Box
       sx={[
-        { padding: 7, border: '1px solid', borderColor: 'colors.primary' },
+        {
+          boxShadow: (theme) => theme.shadows[1],
+          p: 10,
+          border: '1px solid',
+          borderColor: 'colors.primary',
+        },
         sx,
       ]}
       {...props}

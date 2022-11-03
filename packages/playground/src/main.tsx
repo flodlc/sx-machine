@@ -8,6 +8,7 @@ import { theme } from './theme';
 const Wrapper = () => {
   return (
     <>
+      <Box sx={{ m: 10, height: 'medium', width: 100, bg: 'primary' }}></Box>
       {new Array(1).fill(0).map((od, i) => (
         <Box
           key={i}
@@ -45,6 +46,7 @@ const Wrapper = () => {
   );
 };
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ThemeProvider theme={theme}>
     <Wrapper />

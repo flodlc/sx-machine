@@ -1,3 +1,4 @@
+import { useTheme } from '@emotion/react';
 import React, { forwardRef } from 'react';
 // @ts-ignore
 import hash from 'stable-hash';
@@ -9,7 +10,7 @@ import { SX } from './SX';
 
 const CACHE = new Map<string, any>();
 
-const getStyle = (sx?: SX) => {
+const useStyle = (sx?: SX) => {
   const sxHash = hash(sx) as string;
   const cachedSx = CACHE.get(sxHash);
   if (cachedSx) {
@@ -45,7 +46,7 @@ export const Box: Box = forwardRef<React.ElementType, Parameters<Box>[0]>(
   ({ children, sx, as = 'div', ...props }, ref) => {
     CACHE.set(hash({ sx, as, ...props }), true);
     const Tag = as;
-    const style = getStyle(sx);
+    const style = useStyle(sx);
     if (!style) {
       return (
         <Tag ref={ref} {...props}>
