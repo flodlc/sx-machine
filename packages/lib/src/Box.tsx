@@ -1,4 +1,3 @@
-import { useTheme } from '@emotion/react';
 import React, { forwardRef } from 'react';
 // @ts-ignore
 import hash from 'stable-hash';

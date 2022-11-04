@@ -8,7 +8,7 @@ import { theme } from './theme';
 const Wrapper = () => {
   return (
     <>
-      <Box sx={{ m: 10, height: 'medium', width: 100, bg: 'primary' }}></Box>
+      <Box sx={{ m: 10, height: '$10', width: '$10', bg: '$primary' }}></Box>
       {new Array(1).fill(0).map((od, i) => (
         <Box
           key={i}
@@ -20,9 +20,9 @@ const Wrapper = () => {
           <Box
             sx={[
               {
-                background: 'primary',
+                background: '$primary',
                 p: 4,
-                color: 'primary',
+                color: 'white',
                 flex: 1,
                 m: 2,
               },
@@ -39,7 +39,7 @@ const Wrapper = () => {
               m: 2,
             }}
           />
-          <Card sx={{ flex: 1, m: 2, boxShadow: 1 }}>My Card</Card>
+          <Card sx={{ flex: 1, m: 2, boxShadow: '$1' }}>My Card</Card>
         </Box>
       ))}
     </>

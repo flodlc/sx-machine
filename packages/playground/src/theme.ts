@@ -4,11 +4,16 @@ export const theme = {
   ...defaultTheme,
   scales: {
     ...defaultTheme.scales,
-    height: 'heights',
+    height: 'spaces',
+    width: 'spaces',
   },
-  heights: { large: '1000px', medium: '100px' },
+  heights: {
+    $large: '1000px',
+    $medium: '100px',
+  },
   colors: {
-    primary: 'grey',
-    sec: 'blue',
+    $primary: 'grey',
+    $sec: 'blue',
   },
+  shadows: { $1: '0 0 10px 0 grey' },
 } as const;

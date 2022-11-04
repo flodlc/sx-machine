@@ -11,9 +11,6 @@ test('deep scales', () => {
       theme: {
         ...defaultTheme,
         colors: { primary: '#444444' },
-        spaces: Object.fromEntries(
-          new Array(120).fill(0).map((it, i) => [i - 59, `${(i - 59) / 4}rem`])
-        ),
       },
     })({
       padding: -1,
@@ -29,9 +26,6 @@ test('deep scales', () => {
       theme: {
         ...defaultTheme,
         colors: { primary: '#444444' },
-        spaces: Object.fromEntries(
-          new Array(120).fill(0).map((it, i) => [i - 59, `${(i - 59) / 4}rem`])
-        ),
       },
     })({
       mx: '5',
