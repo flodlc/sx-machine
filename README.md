@@ -8,8 +8,7 @@ Here are some reasons implementing the SX property in library from scratch :
 - Other libraries often come with High level components.  
    Themeboxe comes with the Box component, the sx property and nothing more.
 
-Unlike other libraries implementing the sx property, themebox is fully typed.  
-Here is an exemple
+#### Here is an exemple of usage
 
 https://user-images.githubusercontent.com/3781663/199988034-7f4b5e8e-2217-4634-9ab4-9de8740d93c2.mov
 
@@ -74,7 +73,7 @@ const App = () => {
 A generic component is a design components reusable and easily customisable with the sx property overriding.  
 Let's create a generic Button !
 
-```typescript
+```javascript
 // Button.tsx
 
 type Button = GenericComponent<
@@ -93,7 +92,7 @@ const Button: Button = ({ children, sx, ...props }) => {
 };
 ```
 
-```typescript
+```javascript
 // Page.tsx
 
 import Button from './Button.tsx';
