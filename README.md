@@ -1,6 +1,12 @@
 ## Themebox
 
-### themebox is a lightweight (1kb compressed) library that provides tools for theming.
+### themebox is a lightweight (1kb compressed) library that provides tools for theming.  
+
+Here are some reasons implementing the SX property in library from scratch :  
+- Fully typed with theme autocompletion
+- Style caching for better performances
+- Other libraries often come with High level components.  
+   Themeboxe comes with the Box component, the sx property and nothing more.
 
 Unlike other libraries implementing the sx property, themebox is fully typed.  
 Here is an exemple
