@@ -5,9 +5,8 @@
 Unlike other libraries implementing the sx property, themebox is fully typed.  
 Here is an exemple
 
-<video controls>
-  <source src="https://github.com/flodlc/themebox/raw/main/ressources/demo.mov">
-</video>
+https://user-images.githubusercontent.com/3781663/199988034-7f4b5e8e-2217-4634-9ab4-9de8740d93c2.mov
+
 
 ## Installation
 
