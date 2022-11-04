@@ -2,12 +2,11 @@
 
 ### themebox is a lightweight (1kb compressed) library that provides tools for theming.
 
-Unlike other libraries implementing the sx property, themebox is fully typed.
+Unlike other libraries implementing the sx property, themebox is fully typed.  
 Here is an exemple
-![](/ressources/demo.mov)
 
 <video controls>
-  <source src="/ressources/demo.mov">
+  <source src="https://github.com/flodlc/themebox/raw/main/ressources/demo.mov">
 </video>
 
 ## Installation
