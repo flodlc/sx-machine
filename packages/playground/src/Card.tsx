@@ -14,9 +14,10 @@ export const Card: Card = ({ children, sx, ...props }) => {
       sx={[
         {
           boxShadow: (theme) => theme.shadows.$1,
+          bg: '$primary',
           p: '$12',
           border: '1px solid',
-          borderColor: 'colors.primary',
+          borderColor: '$sec',
         },
         sx,
       ]}

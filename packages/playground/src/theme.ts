@@ -1,19 +1,15 @@
-import { defaultTheme } from 'themebox';
+import { createTheme, defaultTheme } from 'themebox';
 
-export const theme = {
+export const theme = createTheme({
   ...defaultTheme,
-  scales: {
-    ...defaultTheme.scales,
-    height: 'spaces',
-    width: 'spaces',
-  },
-  heights: {
-    $large: '1000px',
-    $medium: '100px',
-  },
   colors: {
     $primary: 'grey',
-    $sec: 'blue',
+    $secondary: 'blue',
+    $other: 'blue',
   },
-  shadows: { $1: '0 0 10px 0 grey' },
-} as const;
+  shadows: {
+    $1: '2px 0 10px 0 grey',
+    $2: '2px 0 20px 0 grey',
+    $3: '2px 0 20px 0 grey',
+  },
+});

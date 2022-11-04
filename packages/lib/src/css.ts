@@ -15,8 +15,6 @@ type StyleFromTheme<P extends string> = P extends keyof Theme['scales']
       [D in Theme['scales'][P]]: Theme[D];
     }
     ? keyof Theme[Theme['scales'][P]]
-    : P extends keyof CSSProperties
-    ? StyleFromCSSProperties<P>
     : never
   : never;
 

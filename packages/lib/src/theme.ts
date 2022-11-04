@@ -123,13 +123,24 @@ export const defaultTheme = {
     $59: '14.75rem',
     $60: '15rem',
   },
+  colors: {},
+  shadows: {},
+  fonts: {},
+  fontWeights: {},
+  lineHeights: {},
+  letterSpacings: {},
+  radii: {},
+  zIndices: {},
+  fontSizes: {},
 } as const;
 
-console.log(defaultTheme);
+type Scale = {
+  [k: `$${string}`]: string | number | Record<string | number, string | number>;
+};
 
-export type GenericTheme = Record<
-  string | number,
-  string | number | Record<string | number, string | number>
->;
+export type StrictTheme = {
+  colors: Scale;
+} & { [k: string]: Scale };
 
-export type Theme = typeof defaultTheme & { [k: string]: unknown };
+export type Theme = typeof defaultTheme;
+export const createTheme = <T extends StrictTheme>(theme: T) => theme;
