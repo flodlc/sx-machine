@@ -11,7 +11,7 @@
     "watch:types": "npx tsc -w",
     "watch:source": "tsup src/index.ts --watch",
     "build": "yarn run build:types && yarn run build:source",
-    "build:types": "tsc",
+    "build:types": "npx tsc",
     "build:source": "tsup src/index.ts",
     "test": "jest"
   },

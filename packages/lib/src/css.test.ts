@@ -10,10 +10,10 @@ test('deep scales', () => {
     css({
       theme: {
         ...defaultTheme,
-        colors: { primary: '#444444' },
+        colors: { $primary: '#444444' },
       },
     })({
-      padding: -1,
+      padding: '$-1',
     })
   ).toEqual({
     padding: '-0.25rem',
@@ -25,14 +25,14 @@ test('deep scales', () => {
     css({
       theme: {
         ...defaultTheme,
-        colors: { primary: '#444444' },
+        colors: { $primary: '#444444' },
       },
     })({
-      mx: '5',
-      background: 'primary',
-      paddingX: 2,
-      '> div': { color: 'primary', paddingX: 10 },
-      '> span': { padding: 1 },
+      mx: '$5',
+      background: '$primary',
+      paddingX: '$2',
+      '> div': { color: '$primary', paddingX: '$10' },
+      '> span': { padding: '$1' },
     })
   ).toEqual({
     marginLeft: '1.25rem',
