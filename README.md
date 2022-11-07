@@ -1,17 +1,17 @@
 ## Themebox
 
-### themebox is a lightweight (1kb compressed) library that provides tools for theming.  
+### themebox is a lightweight library that provides tools for theming.
 
-Here are some reasons implementing the SX property in library from scratch :  
+Here are some reasons implementing the SX property in library from scratch :
+
 - Fully typed with theme autocompletion
 - Style caching for better performances
 - Other libraries often come with High level components.  
-   Themeboxe comes with the Box component, the sx property and nothing more.
+  Themeboxe comes with the Box component, the sx property and nothing more.
 
 #### Here is an exemple of usage
 
 https://user-images.githubusercontent.com/3781663/199988034-7f4b5e8e-2217-4634-9ab4-9de8740d93c2.mov
-
 
 ## Installation
 
@@ -79,7 +79,7 @@ Let's create a generic Button !
 type Button = GenericComponent<
   'div',
   {
-    children?: React.ReactNode;
+    children?: React.ReactNode,
   }
 >;
 
