@@ -1,4 +1,4 @@
-## Themebox
+# Sx-machine
 
 ### themebox is a lightweight library that provides tools for theming.
 
@@ -47,8 +47,12 @@ const Exemple = () => {
 Themebox provides a powerful theming feature.  
 The default theme includes spaces and breakpoints.
 
+> ### $ prefix
+>
+> It's recommanded to use $ prefixed theme keys to help differenciate theme values from native CSS values
+
 ```javascript
-import { defaultTheme } from 'themebox';
+import { defaultTheme } from 'sx-machine';
 
 const theme = {
   ...defaultTheme,
@@ -75,21 +79,18 @@ Let's create a generic Button !
 
 ```javascript
 // Button.tsx
+import { createGenericComponent } from 'sx-machine';
 
-type Button = GenericComponent<
-  'div',
+const Button: Button = createGenericComponent<'div',
   {
     children?: React.ReactNode,
-  }
->;
-
-const Button: Button = ({ children, sx, ...props }) => {
+  }>(({ children, sx, ...props }) => {
   return (
     <Box sx={[{ bg: 'green', px: 4, py: 2 }, sx]} {...props}>
       {children}
     </Box>
   );
-};
+});
 ```
 
 ```javascript

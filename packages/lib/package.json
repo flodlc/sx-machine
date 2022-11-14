@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "packageManager": "yarn@3.2.1",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "dev": "run-p --continue-on-error watch:source watch:types",
     "watch:types": "npx tsc -w",
