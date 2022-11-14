@@ -135,12 +135,10 @@ export const defaultTheme = {
 } as const;
 
 type Scale = {
-  [k: `$${string}`]: string | number | Record<string | number, string | number>;
+  [k: `${string}`]: string | number | Record<string | number, string | number>;
 };
 
-export type StrictTheme = {
-  colors: Scale;
-} & { [k: string]: Scale };
+export type StrictTheme = { [k: string]: Scale };
 
 export type Theme = typeof defaultTheme;
 export const createTheme = <T extends StrictTheme>(theme: T) => theme;

@@ -1,14 +1,10 @@
+import { Box, createGenericComponentWithRef } from '@flodlc/sxmachine';
 import React from 'react';
-import { Box, GenericComponent } from 'themebox';
 
-type Card = GenericComponent<
+export const Card = createGenericComponentWithRef<
   'div',
-  {
-    children?: React.ReactNode;
-  }
->;
-
-export const Card: Card = ({ children, sx, ...props }) => {
+  { children?: React.ReactNode }
+>(({ children, sx, ...props }) => {
   return (
     <Box
       sx={[
@@ -26,4 +22,4 @@ export const Card: Card = ({ children, sx, ...props }) => {
       {children}
     </Box>
   );
-};
+});

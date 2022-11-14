@@ -1,4 +1,4 @@
-import { createTheme, defaultTheme } from 'themebox';
+import { createTheme, defaultTheme } from '@flodlc/sxmachine';
 
 export const theme = createTheme({
   ...defaultTheme,
