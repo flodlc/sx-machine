@@ -1,6 +1,6 @@
 # Sx-machine
 
-## Sx-machine is a lightweight library that a Box component and its SX property.
+## Sx-machine is a lightweight library that provides a Box component for React and its themed SX property.
 
 ### Main features
 
