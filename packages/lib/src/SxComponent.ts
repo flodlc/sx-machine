@@ -8,7 +8,7 @@ export type SxComponent<A extends React.ElementType = 'div', P = unknown> = <
   args: {
     as?: C;
     sx?: SX;
-  } & React.ComponentPropsWithoutRef<C> &
+  } & Omit<React.ComponentPropsWithoutRef<C>, keyof P> &
     P
 ) => React.ReactElement | null;
 
@@ -20,7 +20,7 @@ export type SxComponentWithRef<
     as?: C;
     sx?: SX;
     ref?: ForwardedRef<C> | any;
-  } & React.ComponentPropsWithoutRef<C> &
+  } & Omit<React.ComponentPropsWithoutRef<C>, keyof P> &
     P,
   ref: React.ForwardedRef<C>
 ) => React.ReactElement | null;
