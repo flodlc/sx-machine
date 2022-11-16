@@ -1,4 +1,5 @@
-# Sx-machine
+<h1 align="center">Sx-machine</h1>
+<p align="center">First class Sx property for React.</p>
 
 ## Sx-machine is a lightweight library that provides a Box component for React and its themed SX property.
 
