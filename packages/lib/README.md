@@ -74,10 +74,10 @@ const App = () => {
 };
 ```
 
-## Generic components
+## Reusable components
 
-A generic component is a design components reusable and easily customisable with the sx property overriding.  
-Let's create a generic Button !
+Components often need to be reusable and easily customisable with the sx property overriding.  
+Let's create a reusable Button !
 
 ```javascript
 // Button.tsx
@@ -105,7 +105,7 @@ const Page = () => {
     <div>
       <Button onClick=() => {console.log('hey!')}>Button</Button>
 
-      // Generic components allows additional style with the sx prop
+      // Reusable components allows additional style with the sx prop
       <Button sx={{mt: 4}}>Custom Button</Button>
     </div>
   );
