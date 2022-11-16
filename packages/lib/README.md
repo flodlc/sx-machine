@@ -6,7 +6,7 @@
 
 - Box component for React
 - Sx property with first class typescript support
-- Highly customiazble theme provider
+- Highly customizable theme provider
 - Reusable components factory
 - Style caching for high performances
 <hr>

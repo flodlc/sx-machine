@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@flodlc/sxmachine": "^*",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "sx-machine": "^*"
   },
   "devDependencies": {
     "@types/node": "^18.7.16",

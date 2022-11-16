@@ -1,4 +1,4 @@
-import { createTheme, defaultTheme } from '@flodlc/sxmachine';
+import { createTheme, defaultTheme } from 'sx-machine';
 
 export const theme = createTheme({
   ...defaultTheme,

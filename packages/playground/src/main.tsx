@@ -1,6 +1,6 @@
-import { Box, ThemeProvider } from '@flodlc/sxmachine';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Box, ThemeProvider } from 'sx-machine';
 
 import { Card } from './Card';
 import { theme } from './theme';

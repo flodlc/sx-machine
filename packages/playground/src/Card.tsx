@@ -1,5 +1,5 @@
-import { Box, createSxComponentWithRef } from '@flodlc/sxmachine';
 import React from 'react';
+import { Box, createSxComponentWithRef } from 'sx-machine';
 
 export const Card = createSxComponentWithRef<
   'div',
