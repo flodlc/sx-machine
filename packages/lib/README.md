@@ -1,13 +1,15 @@
 # Sx-machine
 
-### themebox is a lightweight library that provides tools for theming.
+## Sx-machine is a lightweight library that a Box component and its SX property.
 
-Here are some reasons implementing the SX property in library from scratch :
+### Main features
 
-- Fully typed with theme autocompletion
-- Style caching for better performances
-- Other libraries often come with High level components.  
-  Themeboxe comes with the Box component, the sx property and nothing more.
+- Box component for React
+- Sx property with first class typescript support
+- Highly customiazble theme provider
+- Reusable components factory
+- Style caching for high performances
+<hr>
 
 #### Here is an exemple of usage
 
@@ -16,9 +18,9 @@ https://user-images.githubusercontent.com/3781663/199988034-7f4b5e8e-2217-4634-9
 ## Installation
 
 ```
-npm install themebox
+npm install sx-machine
 ---
-yarn add themebox
+yarn add sx-machine
 ```
 
 ## Usage
@@ -44,7 +46,7 @@ const Exemple = () => {
 
 ## Theming
 
-Themebox provides a powerful theming feature.  
+Sx-machine provides a powerful theming feature.  
 The default theme includes spaces and breakpoints.
 
 > ### $ prefix
@@ -79,9 +81,9 @@ Let's create a generic Button !
 
 ```javascript
 // Button.tsx
-import { createGenericComponent } from 'sx-machine';
+import { createSxComponent } from 'sx-machine';
 
-const Button: Button = createGenericComponent<'div',
+const Button: Button = createSxComponent<'div',
   {
     children?: React.ReactNode,
   }>(({ children, sx, ...props }) => {

@@ -6,8 +6,5 @@ export { defaultTheme, createTheme } from './theme';
 export type { Theme } from './theme';
 export { Box } from './Box';
 export type { SX } from './SX';
-export {
-  createGenericComponent,
-  createGenericComponentWithRef,
-} from './GenericComponent';
+export { createSxComponent, createSxComponentWithRef } from './SxComponent';
 export { css } from './css';

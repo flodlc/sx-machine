@@ -3,9 +3,9 @@ import React, { forwardRef } from 'react';
 import hash from 'stable-hash';
 
 import { css, InputStyle } from './css';
-import { GenericComponent } from './GenericComponent';
 import { Theme } from './index';
 import { SX } from './SX';
+import { SxComponent } from './SxComponent';
 
 const CACHE = new Map<string, any>();
 
@@ -39,7 +39,7 @@ const useStyle = (sx?: SX) => {
   }
 };
 
-type Box = GenericComponent<'div', { children?: React.ReactNode }>;
+type Box = SxComponent<'div', { children?: React.ReactNode }>;
 
 export const Box: Box = forwardRef<React.ElementType, Parameters<Box>[0]>(
   ({ children, sx, as = 'div', ...props }, ref) => {

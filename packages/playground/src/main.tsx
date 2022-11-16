@@ -39,7 +39,9 @@ const Wrapper = () => {
               m: 2,
             }}
           />
-          <Card sx={{ flex: 1, m: 2, boxShadow: '$1' }}>My Card</Card>
+          <Card sx={{ flex: 1, m: 2, boxShadow: '$1' }}>
+            My Card <div>toto</div>
+          </Card>
         </Box>
       ))}
     </>
