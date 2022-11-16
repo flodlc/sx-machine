@@ -75,6 +75,20 @@ const App = () => {
 };
 ```
 
+## The `as` attribute
+
+The Box Component is the primitive component that allows you to access the sx property. By default it renders a div html element.  
+It accepts a `as` attribute to choose the needed tag.
+
+```javascript
+<Box as="a" href="#" sx={{ color: '$primary' }}>
+  My link
+</Box>
+```
+
+> Of course, the href attribute type is well inferred from the "`a`" tag.  
+> And it works for all tags and Components !
+
 ## Reusable components
 
 Components often need to be reusable and easily customisable with the sx property overriding.  
