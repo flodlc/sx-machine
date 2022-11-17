@@ -6,5 +6,5 @@ export { defaultTheme, createTheme } from './theme';
 export type { Theme } from './theme';
 export { Box } from './Box';
 export type { SX } from './SX';
-export { createSxComponent, createSxComponentWithRef } from './SxComponent';
+export { createSxComponent } from './SxComponent';
 export { css } from './css';

@@ -77,19 +77,21 @@ export function css({
         const value =
           typeof brutValue === 'function' ? brutValue(theme) : brutValue;
 
-        if (!value) return acc;
+        if (isNil(value)) return acc;
 
         if (Array.isArray(value)) {
           return breakpoints.reduce((accu, breakpoint, index) => {
             const breakpointRule = `@media (min-width: ${breakpoint})`;
             const breakpointValue = value[index];
-            if (breakpointValue === null || breakpointValue === undefined)
-              return accu;
+
+            if (isNil(breakpointValue)) return accu;
+
             const computedBreakpointValue = computeValue({
               key: resolvedKey as keyof InputStyle,
               value: breakpointValue,
             });
-            if (!computedBreakpointValue) return accu;
+
+            if (isNil(computedBreakpointValue)) return accu;
 
             if (typeof computedBreakpointValue === 'object') {
               return {
@@ -110,7 +112,7 @@ export function css({
             };
           }, acc);
         }
-        if (!value) return acc;
+        // if (!value) return acc;
 
         if (typeof value === 'object') {
           return { ...acc, [resolvedKey]: computeProp(value) };
@@ -120,7 +122,7 @@ export function css({
           key: resolvedKey as keyof InputStyle,
           value,
         });
-        if (!computedValue) return acc;
+        if (isNil(computedValue)) return acc;
 
         if (typeof computedValue === 'object') {
           return { ...acc, ...computedValue };
@@ -153,6 +155,7 @@ export function css({
         key in TRANSFORMS
           ? TRANSFORMS[key as keyof typeof TRANSFORMS]
           : undefined;
+
       return scale
         ? scale(themedValue as never)
         : (themedValue as CSSProperties[keyof CSSProperties] | CSSProperties);
@@ -160,3 +163,6 @@ export function css({
     }
   };
 }
+
+const isNil = (value: unknown): value is null | undefined =>
+  value === null || value === undefined;

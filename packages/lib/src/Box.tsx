@@ -1,11 +1,11 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 // @ts-ignore
 import hash from 'stable-hash';
 
 import { css, InputStyle } from './css';
 import { Theme } from './index';
 import { SX } from './SX';
-import { SxComponent } from './SxComponent';
+import { createSxComponent } from './SxComponent';
 
 const CACHE = new Map<string, any>();
 
@@ -39,10 +39,10 @@ const useStyle = (sx?: SX) => {
   }
 };
 
-type Box = SxComponent<'div', { children?: React.ReactNode }>;
+// type Box = SxComponent<'div', { children?: React.ReactNode }>;
 
-export const Box: Box = forwardRef<React.ElementType, Parameters<Box>[0]>(
-  ({ children, sx, as = 'div', ...props }, ref) => {
+export const Box = createSxComponent<'div', { children?: React.ReactNode }>(
+  ({ children, sx, as = 'div', ref, ...props }) => {
     CACHE.set(hash({ sx, as, ...props }), true);
     const Tag = as;
     const style = useStyle(sx);
@@ -57,6 +57,16 @@ export const Box: Box = forwardRef<React.ElementType, Parameters<Box>[0]>(
       <Tag ref={ref} {...props} css={style}>
         {children}
       </Tag>
+    );
+  }
+);
+
+export const Card = createSxComponent<'div', { children?: React.ReactNode }>(
+  ({ children, sx, ...props }) => {
+    return (
+      <Box sx={[sx]} {...props}>
+        {children}
+      </Box>
     );
   }
 );

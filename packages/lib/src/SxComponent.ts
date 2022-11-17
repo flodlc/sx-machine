@@ -19,24 +19,31 @@ export type SxComponentWithRef<
   args: {
     as?: C;
     sx?: SX;
-    ref?: ForwardedRef<C> | any;
-  } & Omit<React.ComponentPropsWithoutRef<C>, keyof P> &
+    ref?: React.RefAttributes<C> | null | any;
+  } & React.ComponentPropsWithoutRef<C> &
     P,
   ref: React.ForwardedRef<C>
 ) => React.ReactElement | null;
 
-export function createSxComponentWithRef<
-  A extends React.ElementType,
-  P extends Record<string, unknown>
->(Component: SxComponentWithRef<A, P>) {
-  return forwardRef<React.ElementType, Parameters<SxComponentWithRef<A, P>>[0]>(
-    Component
-  );
-}
+export type SxComponentWithRefIn<
+  A extends React.ElementType = 'div',
+  P = unknown
+> = <C extends React.ElementType = A>(
+  args: {
+    as?: C;
+    sx?: SX;
+    ref?: React.ForwardedRef<C> | null;
+  } & Omit<React.ComponentPropsWithoutRef<C>, keyof P> &
+    P
+) => React.ReactElement | null;
 
 export function createSxComponent<
   A extends React.ElementType,
   P extends Record<string, unknown>
->(Component: SxComponent<A, P>) {
-  return Component;
+>(Component: SxComponentWithRefIn<A, P>): SxComponentWithRef<A, P> {
+  //@ts-ignore
+  return forwardRef<
+    React.ElementType<A>,
+    Parameters<SxComponentWithRef<A, P>>[0]
+  >((props, ref) => Component({ ...props, ref }));
 }
