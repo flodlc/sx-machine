@@ -159,7 +159,6 @@ export function css({
       return scale
         ? scale(themedValue as never)
         : (themedValue as CSSProperties[keyof CSSProperties] | CSSProperties);
-      // themedValue as CSSProperties[keyof CSSProperties] | CSSProperties
     }
   };
 }
