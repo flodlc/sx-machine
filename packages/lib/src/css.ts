@@ -1,5 +1,4 @@
 import * as CSS from 'csstype';
-import get from 'lodash.get';
 
 import { Theme } from './index';
 import { ALIASES, TRANSFORMS } from './rules';
@@ -112,7 +111,6 @@ export function css({
             };
           }, acc);
         }
-        // if (!value) return acc;
 
         if (typeof value === 'object') {
           return { ...acc, [resolvedKey]: computeProp(value) };
@@ -131,33 +129,28 @@ export function css({
       }, {} as CSS);
     }
 
-    function computeValue<K extends keyof InputStyle>({
-      key,
-      value,
-    }: {
-      key: K;
-      value: string | boolean | number;
-    }) {
+    function computeValue<
+      K extends keyof typeof theme.scales | string | number
+    >({ key, value }: { key: K; value: string | boolean | number }) {
+      const scale: typeof theme.scales[keyof typeof theme.scales] | undefined =
+        //@ts-ignore
+        key in theme.scales ? theme.scales[key] : undefined;
+
       const themedValue =
         typeof value === 'string' || typeof value === 'number'
-          ? get(
-              theme,
-              `${
-                key in theme.scales
-                  ? `${theme.scales[key as keyof typeof theme.scales]}.`
-                  : ''
-              }${value}`,
-              value
-            )
+          ? scale
+            ? //@ts-ignore
+              theme[scale as keyof typeof theme][value] ?? value
+            : value
           : value;
 
-      const scale =
+      const transform =
         key in TRANSFORMS
           ? TRANSFORMS[key as keyof typeof TRANSFORMS]
           : undefined;
 
-      return scale
-        ? scale(themedValue as never)
+      return transform
+        ? transform(themedValue as never)
         : (themedValue as CSSProperties[keyof CSSProperties] | CSSProperties);
     }
   };
